@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS location_ski;
-CREATE DATABASE location_ski CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE location_ski;
+DROP DATABASE IF EXISTS location_ski2;
+CREATE DATABASE location_ski2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE location_ski2;
 
 CREATE TABLE clients(
 	noCli INT AUTO_INCREMENT NOT NULL,
@@ -65,14 +65,41 @@ CREATE TABLE tarifs(
 )ENGINE = INNODB;
 
 INSERT INTO clients (noCli, nom, prenom, adresse, cpo, ville) VALUES 
-    (1, 'Albert', 'Anatole', 'Rue des accacias', '61000', 'Amiens'),
-    (2, 'Bernard', 'Barnabé', 'Rue du bar', '1000', 'Bourg en Bresse'),
-    (3, 'Dupond', 'Camille', 'Rue Crébillon', '44000', 'Nantes'),
-    (4, 'Desmoulin', 'Daniel', 'Rue descendante', '21000', 'Dijon'),
-     (5, 'Ernest', 'Etienne', 'Rue de l’échaffaud', '42000', 'Saint Étienne'),
-    (6, 'Ferdinand', 'François', 'Rue de la convention', '44100', 'Nantes'),
-    (9, 'Dupond', 'Jean', 'Rue des mimosas', '75018', 'Paris'),
-    (14, 'Boutaud', 'Sabine', 'Rue des platanes', '75002', 'Paris');
+(1, 'Albert', 'Anatole', 'Rue des accacias', '61000', 'Amiens'),
+(2, 'Bernard', 'Barnabé', 'Rue du bar', '1000', 'Bourg en Bresse'),
+(3, 'Dupond', 'Camille', 'Rue Crébillon', '44000', 'Nantes'),
+(4, 'Desmoulin', 'Daniel', 'Rue descendante', '21000', 'Dijon'),
+(5, 'Ernest', 'Etienne', 'Rue de l’échaffaud', '42000', 'Saint Étienne'),
+(6, 'Ferdinand', 'François', 'Rue de la convention', '44100', 'Nantes'),
+(9, 'Dupond', 'Jean', 'Rue des mimosas', '75018', 'Paris'),
+(14, 'Boutaud', 'Sabine', 'Rue des platanes', '75002', 'Paris'),
+(20, 'Dubosc', 'Frank', '12 avenue des flots bleus', '76140', 'Petit-Quevilly'),
+(21, 'Boon', 'Dany', '22 rue des Ch''tis', '59280', 'Armentières'),
+(22, 'Elmaleh', 'Gad', '45 rue du sentier', '75001', 'Paris'),
+(23, 'Dujardin', 'Jean', 'rue Brice', '92500', 'Rueil-Malmaison'),
+(24, 'Marceau', 'Sophie', 'Boulevard de la Boom', '75010', 'Paris'),
+(25, 'Merad', 'Kad', 'Rue du petit nicolas', '91130', 'Ris-Orangis'),
+(26, 'Seigner', 'Mathilde', '357 rue du Camping', '75012', 'Paris'),
+(27, 'Reno', 'Jean', '78 Boulevard de Léon', '51200', 'Montmirail'),
+(28, 'Lanvin', 'Gérard', '84 avenue de l''aile ou la cuisse', '92100', 'Boulogne-Billancourt'),
+(29, 'Tautou', 'Audrey', 'rue de Montmartre', '63110', 'Beaumont'),
+(30, 'Cotillard', 'Marion', '45 rue de la Même', '13001', 'Marseille'),
+(31, 'Duris', 'Romain', '76 rue de l''arnaqueur', '06000', 'Nice'),
+(32, 'Depardieu', 'Gérard', '57 rue du conte de Monté-Cristo', '36000', 'Chateauroux'),
+(33, 'Youn', 'Michaël', 'rue de la beuze', '92150', 'Suresnes'),
+(34, 'Poelvoorde', 'Benoït', '22 rue du Boulet', '22500', 'Paimpol'),
+(35, 'Paradis', 'Vanessa', '12 rue des arnaqueurs', '94100', 'Saint-Maur-des-Fosses'),
+(36, 'Wilson', 'Lambert', '100 rue de Dieu', '92200', 'Neuilly-sur-Seine'),
+(37, 'Garcia', 'José', '65 rue de la vérité', '75001', 'Paris'),
+(38, 'Luchini', 'Fabrice', '73 rue de Beaumarchais', '75016', 'Paris'),
+(39, 'Baye', 'Nathalie', '33 rue de Vénus', '27150', 'Mainneville'),
+(40, 'Magimel', 'Benoït', '47 rue des petits mouchoirs', '33950', 'Lége-Cap-Ferret'),
+(41, 'Cluzet', 'François', '7 rue des apprentis', '75018', 'Paris'),
+(42, 'Frot', 'Catherine', 'rue Odette', '69110', 'Sainte Foy-les-Lyon'),
+(43, 'Dupontel', 'Albert', '11 impasse de Bernie', '78100', 'Saintermain-en-Laye'),
+(44, 'Huppert', 'Isabelle', '8 rue des femmes', '75002', 'Paris'),
+(45, 'Deneuve', 'Catherine', '12 rue de Rochefort', '50100', 'Cherbourg-Octeville'),
+(46, 'de France', 'Cécile', '17 rue de l''auberge espagnole', '08000', 'Charlesville-Mézières');
 
 INSERT INTO fiches (noFic, noCli, dateCrea, datePaiement, etat) VALUES 
     (1001, 14,  DATE_SUB(NOW(),INTERVAL  15 DAY), DATE_SUB(NOW(),INTERVAL  13 DAY),'SO' ),
@@ -180,7 +207,7 @@ INSERT INTO lignesFic (noFic, noLig,  refart, depart, retour) VALUES
     (1007, 2, 'F05', DATE_SUB(NOW(),INTERVAL  3 DAY), NULL),
     (1007, 4, 'S02', DATE_SUB(NOW(),INTERVAL  0 DAY), NULL),
     (1008, 1, 'S01', DATE_SUB(NOW(),INTERVAL  0 DAY), NULL);
-    
+
 ALTER TABLE fiches ADD CONSTRAINT fk_nocli FOREIGN KEY (noCli) REFERENCES clients(noCli);
 ALTER TABLE lignesFic ADD CONSTRAINT fk_nofic FOREIGN KEY (noFic) REFERENCES fiches(noFic);
 ALTER TABLE lignesFic ADD CONSTRAINT fk_refart FOREIGN KEY (refart) REFERENCES articles(refart);
@@ -191,145 +218,11 @@ ALTER TABLE grilleTarifs ADD CONSTRAINT fk_codecatetarif FOREIGN KEY (codeCate) 
 ALTER TABLE grilleTarifs ADD CONSTRAINT fk_codetarif FOREIGN KEY (codeTarif) REFERENCES tarifs(codeTarif);
 
 -- Question 1 --
-SELECT *
-FROM clients
-WHERE nom LIKE 'd%';
-
--- Question 2 --
-SELECT
-nom AS nom,
-prenom AS prenom
-FROM clients;
-
--- Question 3 --
 SELECT 
-fiches.noFic AS noFic,
-fiches.etat AS etat,
-clients.nom AS nom,
-clients.prenom AS prenom
-FROM fiches
-INNER JOIN clients ON clients.noCli = fiches.noCli
-WHERE clients.cpo LIKE '44%'
-GROUP BY fiches.noFic, fiches.etat, clients.nom, clients.prenom;
-
--- Question 4 --
-SELECT
-fiches.noFic AS noFic,
 clients.nom AS nom,
 clients.prenom AS prenom,
-articles.refart AS refart,
-articles.designation AS designation,
-lignesFic.depart AS depart,
-lignesFic.retour AS retour,
-tarifs.prixjour AS prixJour,
-(IFNULL(DATEDIFF(IFNULL(lignesFic.retour, NOW()), lignesFic.depart), 0) + 1) * tarifs.prixjour AS montant
-FROM fiches
-INNER JOIN lignesFic ON fiches.noFic = lignesFic.noFic
-INNER JOIN articles ON lignesFic.refart = articles.refart
-INNER JOIN categories ON articles.codeCate = categories.codeCate
-INNER JOIN gammes ON articles.codeGam = gammes.codeGam
-INNER JOIN grilleTarifs ON grilleTarifs.codeGam = gammes.codeGam AND grilleTarifs.codeCate = categories.codeCate
-INNER JOIN tarifs ON grilleTarifs.codeTarif = tarifs.codeTarif
-INNER JOIN clients ON fiches.noCli = clients.noCli
-WHERE fiches.noFic = 1002;
+clients.adresse AS adresse,
+clients.cpo AS code_postale,
+clients.ville AS ville
+FROM clients
 
--- Question 5 --
-SELECT 
-gammes.libelle AS Gamme,
-AVG(tarifs.prixjour) AS tarif_journalier_moyen
-FROM articles
-INNER JOIN gammes ON articles.codeGam = gammes.codeGam
-INNER JOIN grilleTarifs ON articles.codeGam = grilletarifs.codeGam AND articles.codeCate = grilletarifs.codeCate
-INNER JOIN tarifs ON grilletarifs.codeTarif = tarifs.codeTarif
-GROUP BY gammes.libelle;
-
--- Question 6 --
-SELECT
-    fiches.noFic AS numeroFiche,
-    clients.nom AS nomClient,
-    clients.prenom AS prenomClient,
-    articles.refart AS referenceArticle,
-    articles.designation AS designationArticle,
-    lignesFic.depart AS dateDepart,
-    lignesFic.retour AS dateRetour,
-    tarifs.prixjour AS prixJournalier,
-    (IFNULL(DATEDIFF(IFNULL(lignesFic.retour, NOW()), lignesFic.depart), 0) + 1) * tarifs.prixjour AS montant,
-    (SELECT SUM((IFNULL(DATEDIFF(IFNULL(lignesFicSous.retour, NOW()), lignesFicSous.depart), 0) + 1) * tarifsSous.prixjour)
-     FROM lignesFic AS lignesFicSous
-     INNER JOIN articles AS articlesSous ON lignesFicSous.refart = articlesSous.refart
-     INNER JOIN categories AS categoriesSous ON articlesSous.codeCate = categoriesSous.codeCate
-     INNER JOIN gammes AS gammesSous ON articlesSous.codeGam = gammesSous.codeGam
-     INNER JOIN grilleTarifs AS grilleTarifsSous ON grilleTarifsSous.codeGam = gammesSous.codeGam 
-                                                  AND grilleTarifsSous.codeCate = categoriesSous.codeCate
-     INNER JOIN tarifs AS tarifsSous ON grilleTarifsSous.codeTarif = tarifsSous.codeTarif
-     WHERE lignesFicSous.noFic = fiches.noFic) AS total
-FROM fiches
-INNER JOIN lignesFic ON fiches.noFic = lignesFic.noFic
-INNER JOIN articles ON lignesFic.refart = articles.refart
-INNER JOIN categories ON articles.codeCate = categories.codeCate
-INNER JOIN gammes ON articles.codeGam = gammes.codeGam
-INNER JOIN grilleTarifs ON grilleTarifs.codeGam = gammes.codeGam 
-                         AND grilleTarifs.codeCate = categories.codeCate
-INNER JOIN tarifs ON grilleTarifs.codeTarif = tarifs.codeTarif
-INNER JOIN clients ON fiches.noCli = clients.noCli
-WHERE fiches.noFic = 1002;
-
--- Question 7 --
-SELECT 
-categories.libelle AS libelle,
-tarifs.libelle AS libelle,
-gammes.libelle AS libelle,
-tarifs.prixjour AS prixJour 
-FROM tarifs 
-JOIN grilleTarifs ON grilleTarifs.codeTarif=tarifs.codeTarif
-JOIN gammes ON gammes.codeGam=grilleTarifs.codeGam
-JOIN categories ON categories.codeCate=grilletarifs.codeCate;
-
--- Question 8 --
-SELECT 
-articles.refart AS refart,
-articles.designation AS designation,
-COUNT(lignesFic.noFic) AS nbLocation
-FROM articles
-JOIN lignesFic ON lignesFic.refart=articles.refart
-JOIN categories ON categories.codeCate=articles.codeCate
-where categories.libelle="surf"
-GROUP BY articles.refart;
-
--- Question 9 --
-SELECT 
-    AVG(nombre_articles) AS moyenne_articles_par_fiche
-FROM (
-    SELECT 
-        noFic, 
-        COUNT(*) AS nombre_articles
-    FROM lignesFic
-    GROUP BY noFic
-) AS sous_requete;
-
--- Question 10 --
-SELECT 
-categories.libelle AS libelle,
-COUNT(lignesFic.noFic) AS nombre_de_location
-FROM categories
-JOIN articles ON categories.codeCate=articles.codeCate
-JOIN lignesFic ON lignesFic.refart=articles.refart
-where categories.libelle IN ("ski alpin","surf","Patinette")
-GROUP BY categories.libelle;
-
--- Question 11 --
-SELECT 
-    AVG(montant_total) AS montant_moyen_par_fiche
-FROM (
-    SELECT 
-        fiches.noFic,
-        SUM(
-            (IFNULL(DATEDIFF(IFNULL(lignesFic.retour, NOW()), lignesFic.depart), 0) + 1) * tarifs.prixjour
-        ) AS montant_total
-    FROM fiches
-    INNER JOIN lignesFic ON fiches.noFic = lignesFic.noFic
-    INNER JOIN articles ON lignesFic.refart = articles.refart
-    INNER JOIN grilleTarifs ON articles.codeGam = grilleTarifs.codeGam AND articles.codeCate = grilleTarifs.codeCate
-    INNER JOIN tarifs ON grilleTarifs.codeTarif = tarifs.codeTarif
-    GROUP BY fiches.noFic
-) AS sous_requete;
