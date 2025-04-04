@@ -316,7 +316,7 @@ FROM categories
 JOIN articles ON categories.codeCate=articles.codeCate
 JOIN lignesFic ON lignesFic.refart=articles.refart
 where categories.libelle IN ("ski alpin","surf","Patinette")
-GROUP BY categories.libelle
+GROUP BY categories.libelle;
 
 -- Question 11 --
 SELECT 
