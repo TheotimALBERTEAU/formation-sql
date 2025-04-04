@@ -197,8 +197,8 @@ WHERE nom LIKE 'd%';
 
 -- Question 2 --
 SELECT
-clients.nom AS nom,
-clients.prenom AS prenom
+nom AS nom,
+prenom AS prenom
 FROM clients;
 
 -- Question 3 --
@@ -276,4 +276,61 @@ INNER JOIN clients ON fiches.noCli = clients.noCli
 WHERE fiches.noFic = 1002;
 
 -- Question 7 --
+SELECT 
+categories.libelle AS libelle,
+tarifs.libelle AS libelle,
+gammes.libelle AS libelle,
+tarifs.prixjour AS prixJour 
+FROM tarifs 
+JOIN grilleTarifs ON grilleTarifs.codeTarif=tarifs.codeTarif
+JOIN gammes ON gammes.codeGam=grilleTarifs.codeGam
+JOIN categories ON categories.codeCate=grilletarifs.codeCate;
 
+-- Question 8 --
+SELECT 
+articles.refart AS refart,
+articles.designation AS designation,
+COUNT(lignesFic.noFic) AS nbLocation
+FROM articles
+JOIN lignesFic ON lignesFic.refart=articles.refart
+JOIN categories ON categories.codeCate=articles.codeCate
+where categories.libelle="surf"
+GROUP BY articles.refart;
+
+-- Question 9 --
+SELECT 
+    AVG(nombre_articles) AS moyenne_articles_par_fiche
+FROM (
+    SELECT 
+        noFic, 
+        COUNT(*) AS nombre_articles
+    FROM lignesFic
+    GROUP BY noFic
+) AS sous_requete;
+
+-- Question 10 --
+SELECT 
+categories.libelle AS libelle,
+COUNT(lignesFic.noFic) AS nombre_de_location
+FROM categories
+JOIN articles ON categories.codeCate=articles.codeCate
+JOIN lignesFic ON lignesFic.refart=articles.refart
+where categories.libelle IN ("ski alpin","surf","Patinette")
+GROUP BY categories.libelle
+
+-- Question 11 --
+SELECT 
+    AVG(montant_total) AS montant_moyen_par_fiche
+FROM (
+    SELECT 
+        fiches.noFic,
+        SUM(
+            (IFNULL(DATEDIFF(IFNULL(lignesFic.retour, NOW()), lignesFic.depart), 0) + 1) * tarifs.prixjour
+        ) AS montant_total
+    FROM fiches
+    INNER JOIN lignesFic ON fiches.noFic = lignesFic.noFic
+    INNER JOIN articles ON lignesFic.refart = articles.refart
+    INNER JOIN grilleTarifs ON articles.codeGam = grilleTarifs.codeGam AND articles.codeCate = grilleTarifs.codeCate
+    INNER JOIN tarifs ON grilleTarifs.codeTarif = tarifs.codeTarif
+    GROUP BY fiches.noFic
+) AS sous_requete;
